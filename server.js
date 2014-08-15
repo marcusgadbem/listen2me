@@ -4,12 +4,7 @@
 var fs = require('fs'),
     express = require('express'),
     mongoose = require('mongoose'),
-    env = process.env.NODE_ENV || 'development'
-
-if (env === 'production') {
-    console.log('* Loading New Relic...');
-    require('newrelic');
-}
+    env = process.env.NODE_ENV || 'development';
 
 
 /*
