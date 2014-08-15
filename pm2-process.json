@@ -1,0 +1,15 @@
+[{
+    "name": "l2m-app",
+    "cwd": "/home/ubuntu/apps/listen2me/current",
+    "script": "server.js",
+    "error_file": "/home/ubuntu/apps/listen2me/shared/logs/production.stderr.log",
+    "out_file": "/home/ubuntu/apps/listen2me/shared/logs/production.stdout.log",
+    "pid_file": "/home/ubuntu/apps/listen2me/shared/pids/listen2me.pid",
+    "run_as_user": "ubuntu",
+    "instances": "1",
+    "min_uptime": "200",
+    "merge_logs": "true",
+    "env": {
+        "NODE_ENV": "production"
+    }
+}]
