@@ -1,0 +1,6 @@
+                <form action="/channel/create" method="post">
+                    <input type="hidden" name="_csrf" value="<%= csrf_token %>">
+                    <input type="text" name="channel[name]" id="search"  placeholder="channel name, bro">
+                    <input type="text" name="channel[description]" id="description" placeholder="channel desc">
+                    <button type="submit">Create channel!</button>
+                </form>

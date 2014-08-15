@@ -1,0 +1,21 @@
+.button {
+    @include border-radius(3px);
+    font-family: $font-bold;
+    text-transform: uppercase;
+ }
+
+.button:active {
+    transform: translateY(1px);
+}
+
+.button-red {
+    background: $red;
+}
+
+.button-red:hover {
+    background: $dark-red;
+}
+
+.button-blue {
+    background: $light-blue;
+}

@@ -1,0 +1,80 @@
+
+/**
+ *  Home > Login
+ */
+
+.home--login {
+    margin-top: rem-calc(100);
+}
+/**
+ *  Home > User > Channels list
+ */
+
+.channel--index {
+    .room-item {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        margin-bottom:20px;
+        position:relative;
+        .room--delete-form {
+            position: absolute;
+            top: 0px;
+            right: 0;
+            .room--delete-btn {
+                padding: rem-calc(8);
+                background: #ccc;
+            }
+            .room--delete-btn:hover {
+                background: grey;
+            }
+        }
+        .room-item--title {
+            margin: 0;
+            font-size: rem-calc(19);
+        }
+        .room-item--songs-qty {
+            font-size: rem-calc(15);
+            color: rgba(0,0,0,.4);
+        }
+        .room-item--host {
+            font-size: rem-calc(15);
+            color: rgba(0,0,0,.5);
+        }
+        .room-host { }
+        .room-item--desc {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        ul.room-item-tracks {
+            display: inline-block;
+            color: rgba(0,0,0,.4);
+            margin-bottom: 10px;
+            li {
+                list-style-type: none;
+                border-bottom: 1px solid rgba(0,0,0,.1);
+                margin: 0;
+                padding: 0.2rem 10px;
+                .video--title {
+                    font-size: rem-calc(14);
+                }
+                img.video--thumb {
+                    width:18px;
+                    height:18px;
+                    margin-right: 1rem;
+                    margin-top: -3px;
+                    background: silver;
+                }
+            }
+            li:last-child {
+                border-bottom: none;
+            }
+        }
+        .room-item--no-songs {
+            margin-left: 35px;
+            color: rgba(0,0,0,.5);
+            font-size: 1rem;
+            font-style: italic;
+        }
+    }
+    .room-item:last-child { border-bottom: none;}
+}
+

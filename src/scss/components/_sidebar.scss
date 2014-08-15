@@ -1,0 +1,236 @@
+aside.sidebar {
+
+    margin-top: 46px;
+
+    h1 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        color: #fff;
+        padding: 10px 26px;
+        font-family: $font-regular;
+    }
+
+    h1::after {
+        background: url("../img/sprites/icons.png");
+        width: 17px;
+        height: 17px;
+        float: right;
+        display: inline-block;
+        content: "";
+    }
+
+    nav {
+        ul {
+            border-left: 1px solid $light-grey;
+
+            li {
+                margin-left: 30px;
+                padding: 10px 5px;
+            }
+            li:last-child {
+            }
+            a:link {
+                font-family: $font-regular;
+                color: $sidebar-link-color;
+            }
+            a:hover {
+                color: $light-blue !important;
+            }
+            a:active {
+                color: $dark-blue;
+            }
+            a:visited {
+                color: $sidebar-link-color;
+            }
+        }
+    }
+}
+
+
+/*
+ *  Services Sidebar Styling
+ */
+
+
+aside.sidebar--services {
+    h1 {
+        background: $light-blue;
+    }
+    h1::after {
+        background-position: -208px -6px;
+    }
+    h1.connect {
+        background: $dark-blue;
+        a { color: #fff; }
+    }
+    h1.connect::after {
+        background-position: -146px -6px;
+    }
+    nav {
+        ul {
+
+            li {
+                margin-left: 30px;
+                padding: 10px 5px;
+                border-bottom: 1px solid $light-grey;
+            }
+             li::before {
+                background: url('../img/sprites/icons.png');
+                background-position: -238px 0px;
+                width: 15px;
+                height: 20px;
+                display:inline-block;
+                content: "";
+            }
+            li:last-child {
+                border-bottom: none;
+            }
+            a:link {
+                font-size: 1.1rem;
+            }
+            a:hover {
+
+            }
+            a:active {
+
+            }
+            a:visited {
+
+            }
+        }
+    }
+}
+
+
+
+
+
+/*
+ *  Services Sidebar Styling
+ */
+
+
+aside.sidebar--connect {
+    h1 {
+        background: $dark-blue;
+    }
+    h1::after {
+        background-position: -208px -6px;
+    }
+    h1.connect {
+        background: $dark-blue;
+        a { color: #fff; }
+    }
+    h1.connect::after {
+        background-position: -146px -6px;
+    }
+    nav {
+        ul {
+
+            li {
+                margin-left: 30px;
+                padding: 10px 5px;
+            }
+            li::before {
+                background: url('../img/sprites/icons.png');
+                background-position: -238px 0px;
+                width: 15px;
+                height: 20px;
+                display:inline-block;
+                content: "";
+            }
+            li:last-child {
+            }
+            a:link {
+                font-size: 0.9rem;
+            }
+            a:hover {
+
+            }
+            a:active {
+
+            }
+            a:visited {
+
+            }
+        }
+    }
+}
+
+
+
+
+
+
+/*
+ *  Contact Sidebar Styling
+ */
+
+aside.sidebar--contact {
+    h1 {
+        background: $dark-blue;
+    }
+    h1::after {
+        background-position: -208px -6px;
+    }
+    h1.connect {
+        background: $dark-blue;
+        a { color: #fff; }
+    }
+    h1.connect::after {
+        background-position: -146px -6px;
+    }
+
+
+    nav {
+        ul {
+            border: none;
+            li {
+                padding: 0;
+                margin:0;
+                margin-bottom: 5px;
+                background: $light-grey;
+            }
+
+            li::before {
+                background:none;
+            }
+
+            li:hover, li.current {
+                a:hover::before {
+                    background-position: -118px -3px;
+                }
+                background: $light-blue;
+                h2, a,a:hover { color: #fff !important; }
+            }
+            li.current a::before {
+                background-position: -118px -3px;
+            }
+
+            a:link::before {
+                background: url('../img/sprites/icons.png');
+                background-position: -88px -3px;
+                width: 17px;
+                height: 20px;
+                content: "";
+                display:inline-block;
+                margin-right:10px;
+            }
+            a:link {
+                padding: 20px 20px 2px;
+                display:block;
+            }
+            h2 {
+                font-family: $font-bold;
+                font-size: 1.2rem;
+                display:inline-block;
+            }
+            p {
+                margin-left: 30px;
+            }
+
+        }
+    }
+}
+
+

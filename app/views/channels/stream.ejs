@@ -1,0 +1,101 @@
+   <!-- Top Header -->
+        <div class="header-wrapper bg--grey">
+            <div class="row">
+                <header>
+                    <div class="small-x medium-3 large-3 columns">
+                        <a href="/" class="logo">Listen 2 Me</a>
+                    </div>
+                    <div class="small-x medium-x large-6 columns">
+                        <form id="channel--search" class="js--video-search-form">
+                            <input type="hidden" name="_csrf" value="<%= csrf_token %>">
+                            <input type="text" name="search_term" data-dropdown="search--result" id="search--term"  placeholder="Search for a song">
+                            <input type="radio" name="search_type" class="search--type" value="song" checked>Song</input>
+                            <input type="radio" name="search_type"  class="search--type" value="artist">Artist</input>
+                        </form>
+
+                            <ul  id="search--result" data-dropdown-content class="f-dropdown content">
+                                <p>...</p>
+                               <!-- <li class="row result--item">
+                                    <div class="medium-2 large-3 columns"><img class="result--thumb"></div>
+                                    <div class="medium-10 large-9 columns"><span class="result--content">Spirutalized - I think I'm in love I think I'm in love</span></div>
+                                    <span class="result--btn-add">Add to playlist</span>
+                                </li> -->
+
+                        </ul>
+                    </div>
+
+
+                    <div id="login--box" class="small-x medium-x large-3 columns text-right">
+                        <span class="username"><%= current_user.name %> <a href="/logout" >(Logout)</a></span>
+                    </div>
+                </header>
+            </div>
+        </div>
+        <!-- Top Header eof -->
+
+
+        <div class="row page--channel">
+
+            <!-- Channel Info/Description -->
+            <div class="small-x medium-x large-3 columns">
+                <h1><%= chan.name %></h1>
+                <span>Hosted by</span>
+                <span><%= (String(chan.creator._id) === String(current_user._id)) ? 'YOU!' : chan.creator.username %></span>
+                <p><%= chan.description %></p>
+                <br>
+                <p><span id="js--online-users">--</span> Online Users</p>
+                <a href="#">Share on Facebook</a>
+                <br><br>
+                <a href="/channels">&#8592; Back to channels index</a>
+            </div>
+
+            <!-- Channel Player/Playlist -->
+            <div class="small-x medium-x large-5 columns">
+                <!-- YouTube Embed -->
+                <div id="player-embed"></div>
+                <!--  :eof -->
+
+                <div class="title-wrapper">
+                    <h1>Playlist (<span id="js--playlist-count"><%= chan.playlist.length %></span>)</h1>
+                </div>
+                <div id="playlist" class="room-playlist-tracks">
+
+                    <% chan.playlist.forEach( function( item ){ %>
+                        <%- include _playlist-item.ejs %>
+                    <% }); %>
+
+                </div>
+            </div>
+
+            <!-- Channel Sidebar/Events -->
+            <div id="sidebar--events" class="small-x medium-x large-4 columns">
+                <div class="title-wrapper">
+                    <h1>Events</h1>
+                </div>
+                <div id="events--wrapper">
+               <!--  <div class="row event--item">
+                    <div class="medium-2 large-3 columns"><img class="event--thumb"></div>
+                    <div class="medium-10 large-9 columns"><span class="event--content">DerickLemos added Rammstein live in Montpellier (full concert) to playlist</span></div>
+                </div> -->
+                </div>
+            </div>
+
+        </div> <!-- row channel--index -->
+
+
+
+
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <!-- Footer -->
+        <div class="bg--grey">
+            <footer>
+                <div class="row">
+                    <div class="small-x medium-x large-12 columns">
+                        Foterzinho
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+        <!-- Footer eof -->
+

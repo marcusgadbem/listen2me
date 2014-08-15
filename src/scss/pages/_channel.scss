@@ -1,0 +1,149 @@
+/**
+ *  Channel > Song Search (Top Bar)
+ */
+
+#channel--search {
+    color: #fff;
+    #search--term {
+        border: 0;
+        background: #EEE;
+        width: 300px; height:52px;
+    }
+    .search--type { margin:10px; }
+    input { margin:0; display:inline-block;}
+}
+
+#search--result {
+    overflow-y: scroll;
+    li {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        padding-top: 5px;
+        padding-bottom: 5px;
+        .result--content {
+            font-size: rem-calc(12);
+        }
+        .result--thumb {
+            background: #ccc;
+            width: 40px;
+            height:40px;
+        }
+        .result--btn-add { visibility: hidden;}
+    }
+    li:hover {
+        .result--btn-add {
+            visibility: visible;
+        }
+    }
+    li:last-child {
+        border-bottom: none;
+    }
+}
+
+
+/**
+ *  Channel > Events (Sidebar)
+ */
+
+#sidebar--events {
+    .event--item {
+        margin-bottom:10px;
+        .event--thumb { width: 50px; height:50px; background:grey;}
+        .event--content {
+            font-size: 1rem;
+        }
+    }
+}
+
+
+/**
+ *  Channel > Users List (Sidebar)
+ */
+
+#sidebar--userlist {
+    .user--item {
+        margin-bottom:10px;
+        .user--thumb { width: 50px; height:50px; background:grey;}
+        .user--name {
+            margin-top:15px;
+            display:block;
+            font-size: 1rem;
+        }
+    }
+}
+
+#player-embed {
+    height:308px;
+    margin-bottom:20px;
+}
+
+/**
+ *  Channel > Playlist
+ */
+.page--channel {
+    .room-playlist-tracks {
+        margin-left: 0;
+        .playlist--item {
+            padding-bottom:10px;
+            margin-bottom:10px;
+            list-style-type: none;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            span.video--title {
+                cursor: pointer;
+                font-size: rem-calc(16);
+                display:block;
+            }
+            span.video--title:hover {
+                color: $light-blue;
+            }
+
+            span.video--owner {
+                display:inline-block;
+                margin-top:10px;
+                font-size:0.8rem;
+                color: rgba(0,0,0,.6);
+                .video--remove {
+                    display:inline-block;
+                }
+            }
+            img.video--thumb {
+                width:54px;
+                height:54px;
+                background: silver;
+            }
+        }
+        .playlist--item:hover {
+            background: rgba(0,0,0,.1);
+        }
+        .playlist--item:last-child {
+            border-bottom: none;
+        }
+    }
+}
+
+
+/**
+ *  Channel > Playlist
+ */
+#sidebar--events {
+    .event--item {
+        padding-bottom:10px;
+        margin-bottom:10px;
+        list-style-type: none;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        span.event--content {
+            display:block;
+            margin-top:10px;
+            font-size:0.8rem;
+            color: rgba(0,0,0,.6);
+        }
+        img.event--thumb {
+            width:54px;
+            height:54px;
+            background: silver;
+        }
+    }
+    .event--item:last-child {
+        border-bottom: none;
+    }
+}
+

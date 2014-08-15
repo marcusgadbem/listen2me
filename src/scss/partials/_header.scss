@@ -1,0 +1,17 @@
+/*************************************************************
+    HEADER
+***************/
+
+.header-wrapper {
+    min-height:52px;
+    margin-bottom: rem-calc(20);
+}
+
+
+#login--box {
+    color: #fff;
+    .username {
+        display:block;
+        margin:13px auto;
+    }
+}

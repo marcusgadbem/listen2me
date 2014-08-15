@@ -1,0 +1,24 @@
+@mixin translate($top, $left) {
+	-webkit-transform: translate($top, $left); /* Safari and Chrome */
+	-ms-transform: translate($top, $left); /* IE 9 */
+	transform: translate($top, $left);
+}
+
+@mixin transition($prop, $time, $mode) {
+	-webkit-transition: $prop $time $mode;
+	-moz-transition: $prop $time $mode;
+	-o-transition: $prop $time $mode;
+	-ms-transition: $prop $time $mode;
+	transition: $prop $time $mode;
+}
+
+@mixin background-rgba($r, $g, $b, $a) {
+	background: rgb($r,$g,$b);
+	background: rgba($r,$g,$b, $a);
+}
+
+@mixin border-radius($value) {
+	-webkit-border-radius: $value;
+	-moz-border-radius: $value;
+	border-radius: $value;
+}

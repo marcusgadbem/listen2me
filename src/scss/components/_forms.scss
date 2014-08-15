@@ -1,0 +1,20 @@
+
+form {
+    label {
+        color: #7f8c8d;
+    }
+    label span {
+        color: $red;
+    }
+    input[type='text'], textarea {
+        margin-top: 10px;
+    }
+    input,textarea {
+        border: 1px solid $light-grey !important;
+        box-shadow: none !important;
+    }
+    button[type='submit'] {
+        font-family: $font-regular;
+        padding: 10px 15px;
+    }
+}

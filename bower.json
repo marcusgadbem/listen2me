@@ -1,0 +1,7 @@
+{
+    "name": "l2m-app",
+    "private": true,
+    "dependencies": {
+        "foundation": "zurb/bower-foundation"
+    }
+}

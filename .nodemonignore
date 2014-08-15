@@ -1,0 +1,8 @@
+# this is my ignore file with a nice comment at the top
+
+/vendor/*     	# ignore all external submodules
+/public/*     	# static files
+/app/views/*  	# views do not need reload
+./README.md   	# a specific file
+*.css         	# ignore any CSS files too
+*.html        	# ignore any HTML files too

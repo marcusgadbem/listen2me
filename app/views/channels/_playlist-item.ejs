@@ -1,0 +1,13 @@
+                    <div class="row playlist--item" data-video-id="<%= item.video_id %>" data-video-title="<%= item.video_title %>" data-video-thumbnail="<%= item.video_thumbnails %>">
+                        <div class="medium-2 large-3 columns"><img class="video--thumb" src="<%= item.video_thumbnails %>"></div>
+                        <div class="medium-10 large-9 columns">
+                            <span class="video--title"><%= item.video_title %></span>
+                            <% if (String(item.owner._id) !== String(current_user._id)) { %>
+                                <span class="video--owner">Added by <%= item.owner.username %></span>
+                            <% } else { %>
+
+                                <span class="video--owner">Added by YOU!</span> <a href="#" class="video--remove">(Remove)</a>
+                            <% } %>
+                        </div>
+                    </div>
+
