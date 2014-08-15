@@ -1,5 +1,4 @@
-var parseCookies = require('connect').utils.parseSignedCookies,
-    cookie = require('cookie'),
+var cookie = require('cookie'),
     mongoose = require('mongoose'),
     Channel = mongoose.model('Channel'),
     utilsMongo = require('../../lib/mongoose-utils'),
