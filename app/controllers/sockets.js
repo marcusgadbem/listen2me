@@ -91,14 +91,12 @@ module.exports = function(io, app) {
 
             // set song owner
             videoObject.owner = serializedUser._id;
-            console.log("VIDEO OBJECT: ", videoObject);
 
             Channel.update({
                 _id: channel.id
             }, {
-                $push: {
-                    playlist: data
-                }
+                $push: { playlist: data },
+                $inc: { playlistCount: 1 }
             }, {
                 upsert: true
             }, function(err) {
@@ -128,16 +126,11 @@ module.exports = function(io, app) {
                 serializedUser = utils.serializeUser(userShortcut),
                 videoObject = data;
 
-            console.log(" REMOVING: ", videoObject);
-
             Channel.update({
                 _id: channel.id
             }, {
-                $pull: {
-                    playlist: {
-                        video_id: videoObject.video_id
-                    }
-                }
+                $pull: { playlist: { video_id: videoObject.video_id } },
+                $inc: { playlistCount: -1 }
             }, {
                 upsert: true
             }, function(err) {

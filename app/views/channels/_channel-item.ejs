@@ -1,6 +1,6 @@
                  <div class="room-item">
                     <h2 class="room-item--title">
-                        <a href="channel/<%= chan._id %>"><%= chan.name %></a> <span class="room-item--songs-qty">(<%= chan.playlist.length %> songs)</span>
+                        <a href="channel/<%= chan._id %>"><%= chan.name %></a> <span class="room-item--songs-qty">(<%= chan.playlistCount %> songs)</span>
                         <% if (String(chan.creator._id) === String(current_user._id)) { %>
                             <form  class="room--delete-form" method="post" action="/channel/<%= chan._id %>/destroy">
                                 <input type="hidden" name="_csrf" value="<%= csrf_token %>">

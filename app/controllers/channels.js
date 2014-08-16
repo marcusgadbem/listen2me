@@ -19,7 +19,7 @@ exports.index = function(req, res) {
         page = (req.param('page') > 0 ? req.param('page') : 1) - 1;
 
     Channel.find({})
-            .select('_id name description created_at playlist creator')
+            .select('_id name description created_at playlist creator playlistCount')
             .limit(perPage)
             .skip(perPage * page)
             .populate('creator username')
