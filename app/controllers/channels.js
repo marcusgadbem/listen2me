@@ -14,12 +14,11 @@ var mongoose = require('mongoose'),
  */
 
 exports.index = function(req, res) {
-    //Channel.find({}, {playlist: {$slice: 3}})
-    var perPage = 2,
+    var perPage = 8,
         page = (req.param('page') > 0 ? req.param('page') : 1) - 1;
 
-    Channel.find({})
-            .select('_id name description created_at playlist creator playlistCount')
+    Channel
+            .find({}, { playlist: { $slice: 5 } })
             .limit(perPage)
             .skip(perPage * page)
             .populate('creator username')
