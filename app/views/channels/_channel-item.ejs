@@ -15,7 +15,7 @@
                         <ul class="room-item-tracks">
                         <% chan.playlist.forEach( function( item ){ %>
                             <li>
-                                <img src="" class="video--thumb">
+                                <img src="<%= item.video_thumbnails %>" class="video--thumb">
                                 <span class="video--title"><%= item.video_title %></span>
                             </li>
                         <% }); %>

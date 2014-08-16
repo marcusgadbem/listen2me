@@ -7,7 +7,8 @@
     #search--term {
         border: 0;
         background: #EEE;
-        width: 300px; height:52px;
+        width: 418px;
+        height:52px;
     }
     .search--type { margin:10px; }
     input { margin:0; display:inline-block;}
@@ -24,8 +25,8 @@
         }
         .result--thumb {
             background: #ccc;
-            width: 40px;
-            height:40px;
+            width: 50px;
+            height:50px;
         }
         .result--btn-add { visibility: hidden;}
     }
@@ -84,7 +85,7 @@
         margin-left: 0;
         .playlist--item {
             padding-bottom:10px;
-            margin-bottom:10px;
+            padding-top:10px;
             list-style-type: none;
             border-bottom: 1px solid rgba(0,0,0,.1);
             span.video--title {
@@ -111,8 +112,14 @@
                 background: silver;
             }
         }
+        .playlist--item.current-song {
+            background: rgba(204, 204, 204, 0.15);
+            .video--title {
+                font-weight: bold;
+            }
+        }
         .playlist--item:hover {
-            background: rgba(0,0,0,.1);
+            background: rgba(0, 0, 0, 0.08);
         }
         .playlist--item:last-child {
             border-bottom: none;

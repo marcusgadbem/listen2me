@@ -11,6 +11,7 @@ var Player = (function() {
     var 	YoutubeController,
     		embedded 		= false,
     		// playst index
+            currentSongObject,
     		currentSongIndex = 0;
 
 
@@ -116,8 +117,15 @@ var Player = (function() {
 	}
 
 	function playVideo (videoObject) {
+        // unselect current song
+        if (currentSongObject) {
+            UI.getVideoDOM(currentSongObject.video_id).removeClass('current-song');
+        }
+        // select current song
+        UI.getVideoDOM(videoObject.video_id).addClass('current-song');
+
 		YoutubeController.loadVideoById(videoObject.video_id, 0);
-		//UI.actionLogger('Playing next song: ' + videoObject.video_title );
+        currentSongObject = videoObject;
 	}
 
 

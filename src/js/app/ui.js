@@ -85,7 +85,18 @@ var UI = (function() {
     function removePlaylistItem(videoObject) {
         console.log('Removing ', videoObject);
         // remove object from playlist
-        $('#playlist div[data-video-id="' + videoObject.video_id + '"]').remove();
+        getVideoDOM(videoObject.video_id).remove();
+    }
+
+    /**
+     * Select video DOM on playlist
+     * @param {String} videoId
+     * @returns {Element} return video DOM element
+     */
+
+    function getVideoDOM(videoId) {
+        var $playlist = $playlist || $('#playlist');
+        return $playlist.find('div[data-video-id="' + videoId + '"]');
     }
 
     /**
@@ -130,7 +141,8 @@ var UI = (function() {
         removePlaylistItem: removePlaylistItem,
         actionLogger: printEventItem,
         updateOnlineUsers: printOnlineUsers,
-        updateSongsCount: updateSongsCount
+        updateSongsCount: updateSongsCount,
+        getVideoDOM: getVideoDOM
     }
 
 }());

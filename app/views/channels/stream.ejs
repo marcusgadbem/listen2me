@@ -9,12 +9,12 @@
                         <form id="channel--search" class="js--video-search-form">
                             <input type="hidden" name="_csrf" value="<%= csrf_token %>">
                             <input type="text" name="search_term" data-dropdown="search--result" id="search--term"  placeholder="Search for a song">
-                            <input type="radio" name="search_type" class="search--type" value="song" checked>Song</input>
-                            <input type="radio" name="search_type"  class="search--type" value="artist">Artist</input>
+                            <!--<input type="radio" name="search_type" class="search--type" value="song" checked>Song</input>
+                            <input type="radio" name="search_type"  class="search--type" value="artist">Artist</input>-->
                         </form>
 
                             <ul  id="search--result" data-dropdown-content class="f-dropdown content">
-                                <p>...</p>
+                                <p>Enter the artist and song name...</p>
                                <!-- <li class="row result--item">
                                     <div class="medium-2 large-3 columns"><img class="result--thumb"></div>
                                     <div class="medium-10 large-9 columns"><span class="result--content">Spirutalized - I think I'm in love I think I'm in love</span></div>
@@ -23,7 +23,6 @@
 
                         </ul>
                     </div>
-
 
                     <div id="login--box" class="small-x medium-x large-3 columns text-right">
                         <span class="username"><%= current_user.name %> <a href="/logout" >(Logout)</a></span>
@@ -59,11 +58,12 @@
                     <h1>Playlist (<span id="js--playlist-count"><%= chan.playlist.length %></span>)</h1>
                 </div>
                 <div id="playlist" class="room-playlist-tracks">
-
-                    <% chan.playlist.forEach( function( item ){ %>
-                        <%- include _playlist-item.ejs %>
-                    <% }); %>
-
+                    <%  if (chan.playlist.length > 0) {
+                            chan.playlist.forEach( function( item ){ %>
+                            <%- include _playlist-item.ejs %>
+                    <% }); } else { %>
+                        <p>No songs added yet.</p>
+                    <% } %>
                 </div>
             </div>
 
@@ -73,10 +73,6 @@
                     <h1>Events</h1>
                 </div>
                 <div id="events--wrapper">
-               <!--  <div class="row event--item">
-                    <div class="medium-2 large-3 columns"><img class="event--thumb"></div>
-                    <div class="medium-10 large-9 columns"><span class="event--content">DerickLemos added Rammstein live in Montpellier (full concert) to playlist</span></div>
-                </div> -->
                 </div>
             </div>
 
