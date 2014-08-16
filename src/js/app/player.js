@@ -123,8 +123,9 @@ var Player = (function() {
         }
         // select current song
         UI.getVideoDOM(videoObject.video_id).addClass('current-song');
-
+        // play song
 		YoutubeController.loadVideoById(videoObject.video_id, 0);
+        // store current song
         currentSongObject = videoObject;
 	}
 

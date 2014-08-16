@@ -15,17 +15,27 @@ var mongoose = require('mongoose'),
 
 exports.index = function(req, res) {
     //Channel.find({}, {playlist: {$slice: 3}})
+    var perPage = 2,
+        page = (req.param('page') > 0 ? req.param('page') : 1) - 1;
+
     Channel.find({})
             .select('_id name description created_at playlist creator')
+            .limit(perPage)
+            .skip(perPage * page)
             .populate('creator username')
             .sort('-created_at')
             .exec(function(err, channels) {
                 if (err) return res.render('500')
-                    console.log(channels);
-                res.render('channels/index.ejs', {
-                    layout: 'layouts/channels',
-                    current_user: req.user,
-                    channels: channels
+                Channel.count().exec(function(err, count) {
+                    if (err) return res.render('500')
+                    res.render('channels/index.ejs', {
+                        layout: 'layouts/channels',
+                        current_user: req.user,
+                        channels: channels,
+                        channels_count: count,
+                        page: (page+1),
+                        pages: Math.ceil(count / perPage)
+                    })
                 })
         });
 }
