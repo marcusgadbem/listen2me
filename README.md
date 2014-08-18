@@ -1,7 +1,8 @@
 # Listen 2 Me!
 
-L2m! ([http://listen2me.io/](http://listen2me.io/)) is currently a prototype of an application aimed to enable friends to build songs/videos playlists in real-time and collaboratively.
-It is easy and fun to use. L2m approach is partially based on IRC style except that each #channel has its own playlist.
+L2m! ([http://listen2me.io/](http://listen2me.io/)) is currently a work in progress application aimed at enabling friends to build videos playlists in real-time and collaboratively.  
+It is easy and fun to use: the approach is partially based on IRC style except that each #channel has its own playlist.  
+L2m! uses Youtube API as videos resource.
 
 ## Development notes
 
