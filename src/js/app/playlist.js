@@ -1,64 +1,57 @@
 var Playlist = (function() {
 
-    'use strict';
+  'use strict';
 
-    var 	data =            [];
+  var   data = [];
 
+  /*
+   *  Setup / Init
+   */
+  function init() {
+    console.log('Playlist.init...');
 
+    // postal.channel('playlist').subscribe('data', getData);
 
-    /*
-     *  Setup / Init
-     */
+    data = channelObj.playlist;
+  }
 
-    function init () {
-        console.log('Playlist.init...');
-        data = channelObj.playlist;
+  /**
+   * Fetch data from Youtube
+   * @param {Object} params
+   * @returns {Object} jQuery Ajax Object
+   */
+  function pushVideo(videoObj) {
+    data.push(videoObj);
+    // Embed and Start player if not Embeded yet
+    if (!Player.isEmbedded()) {
+      Player.onYouTubeIframeAPIReady();
     }
+    console.log('Data added: ', data);
+  }
 
-
-    /**
- 	 * Fetch data from Youtube
- 	 * @param {Object} params
- 	 * @returns {Object} jQuery Ajax Object
- 	 */
-
-     function push_song (videoObj) {
-        data.push(videoObj);
-        // Embed and Start player if not Embeded yet
-        if (!Player.isEmbedded()) {
-            Player.onYouTubeIframeAPIReady();
-        }
-        console.log('Data added: ', data);
-     }
-
-    function remove_song (videoObj) {
-        var dataLength   = data.length,
-            i           = 0;
-        for (i;i<dataLength;++i) {
-            if (data[i].video_id == videoObj.video_id) {
-                //delete data[i];
-                data.splice(i, 1);
-                break;
-            }
-        }
-
-        console.log('Data removed: ', data);
-     }
-
-
-    function getData () {
-        return data;
+  function removeVideo(videoObj) {
+    for ( var i = 0, dataLength = data.length; i < dataLength; ++i ) {
+      if (data[i].videoId == videoObj.videoId) {
+        //delete data[i];
+        data.splice(i, 1);
+        break;
+      }
     }
-	/*
-	 * 	Public Methods
-	 */
+    console.log('Data removed: ', data);
+  }
 
-    return {
-    	init: init,
-        data: getData,
-        pushSong: push_song,
-        removeSong: remove_song
-    }
+  function getData() {
+    return data;
+  }
 
+ /*
+  *   Public Methods
+  */
+  return {
+    init: init,
+    data: getData,
+    pushSong: pushVideo,
+    removeSong: removeVideo
+  }
 
 }());

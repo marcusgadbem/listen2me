@@ -1,84 +1,88 @@
-/**
- * Module dependencies.
- */
 var fs = require('fs'),
+    http = require('http'),
     express = require('express'),
     mongoose = require('mongoose'),
-    env = process.env.NODE_ENV || 'development';
-
+    colors = require('colors'),
+    utils = require('./lib/utils'),
+    _ = require('lodash'),
+    envs = {};
 
 /*
  * Create and config server
  */
-
-var app = exports.app = express();
-
+var app = express();
 
 /**
  * Configure application
  */
-
 require('./config')(app);
+envs = app.get('envs');
 
+console.log(envs)
 
-// Bootstrap db connection
 // Connect to mongodb
-config = app.get('config');
-var connect = function() {
-    var options = {
-        server: {
-            socketOptions: {
-                keepAlive: 1
-            }
-        }
+var connectMongo = function() {
+  var options = {
+    server: {
+      socketOptions: {
+        keepAlive: 1
+      }
     }
-    mongoose.connect(config.mongoUrl, options)
+  }
+
+  mongoose.connect(envs.mongodb_uri, options);
 }
-connect()
+
+connectMongo();
 
 /**
  * Bootstrap models
  */
-
-var models_path = __dirname + '/app/models'
-fs.readdirSync(models_path).forEach(function(file) {
-    if (~file.indexOf('.js')) require(models_path + '/' + file)
-})
+var modelsPath = path.join(__dirname, '/app/models');
+fs.readdirSync(modelsPath).forEach(function(file) {
+  if (~file.indexOf('.js')) require(path.join(modelsPath,file))
+});
 
 /*
  * Passportjs auth strategy
  */
-
 require('./config/passport')(app);
 
 /*
  * Routes
  */
-
 require('./config/routes')(app);
 
-
-port = app.get('port');
-exports.server = require('http')
-    .createServer(app).listen(port, function() {
-        console.log('Listen2me started on port %d', port);
-    });
+/*
+ * Start server and bind port
+ */
+var httpServer = http.createServer(app).listen(envs.port, function() {
+  // l2m started
+  console.log('\n', ' listen2me'.bold.yellow, 'started'.yellow, utils.marks("v").green, '\n  -'.grey);
+  // pretty print each env var
+  _.each(Object.keys(envs), function(key) {
+    console.log(utils.marks("[]")[5].grey, key.blue + ':', envs[key]);
+  });
+  // line-break
+  console.log('\n');
+});
 
 /*
  * Socket.io
  */
-
-// express, socket-io, {redis}
-var io = require('./config/socket-io')(app, exports.server, express);
+// express, socket-io
+var io = require('./config/socket-io')(app, httpServer);
 
 // SocketIO Controllers
-require('./app/controllers/sockets')(io, app);
-
+require('./app/controllers/sockets')(app, io);
 
 /*
  * Catch uncaught exceptions
  */
-
 process.on('uncaughtException', function(err) {  
-    console.log('Exception: ' + err.stack);
+  console.log('uncaughtException: %s', err.stack);
 });
+
+// Exports express app and http server
+exports.app     = app;
+exports.server  = httpServer;

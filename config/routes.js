@@ -1,97 +1,64 @@
-/*!
- * Module dependencies.
- */
-
-var async = require('async'),
-    passport = require('passport'),
-    utils = require('../lib/utils');
+var passport = require('passport'),
+    authMiddleware = ('middlewares/authorization');
 
 /**
  * Controllers
  */
-
 var users = require('../app/controllers/users'),
     home = require('../app/controllers/home'),
     channels = require('../app/controllers/channels'),
-    auth = require('./middlewares/authorization')
-
-
+    loginRequired = require('./middlewares/authorization').requiresLogin;
 
 module.exports = function(app) {
 
-    /**
-     * Home
-     */
+  /**
+   * Home
+   */
+  app.get('/', home.index);
 
-    app.get('/', home.index);
+  /**
+   * Login
+   */
+  app.get('/login', users.login);
+  app.get('/logout', users.logout);
 
+  /**
+   * Channels
+   */
+  app.get('/channels', loginRequired, channels.index);
+  app.post('/channel/create', loginRequired, channels.create);
+  app.get('/channel/:id', loginRequired, channels.stream);
+  app.del('/channel/:id/destroy', loginRequired, channels.destroy);
 
-    /**
-     * Login
-     */
+  /**
+   * Authentications
+   */
+  var providersPassport = {
+    "facebook.auth":      passport.authenticate('facebook', {scope: ['basic_info', 'email'], failureRedirect: '/login'}),
+    "facebook.callback":  passport.authenticate('facebook', {failureRedirect: '/login'}),
 
-    app.get('/login', users.login);
-    app.get('/logout', users.logout);
+    "twitter.auth":       passport.authenticate('twitter', {failureRedirect: '/login'}),
+    "twitter.callback":   passport.authenticate('twitter', {failureRedirect: '/login'}),
 
+    "google.auth":        passport.authenticate('google', {
+                            failureRedirect: '/login',
+                            scope: [
+                            'https://www.googleapis.com/auth/userinfo.profile',
+                            'https://www.googleapis.com/auth/userinfo.email']
+                          }),
+    "google.callback":    passport.authenticate('google', {failureRedirect: '/login'})
+  }
 
-    /**
-     * Channels
-     */
+  // Facebook auth / callback
+  app.get('/auth/facebook', providersPassport["facebook.auth"], users.signin);
+  app.get('/auth/facebook/callback', providersPassport["facebook.callback"], users.authCallback);
 
-    app.get('/channels', utils.restrict, channels.index);
-    app.post('/channel/create', utils.restrict, channels.create);
-    app.get('/channel/:id', utils.restrict, channels.stream);
-    app.del('/channel/:id/destroy', utils.restrict, channels.destroy);
+  // Twitter auth / callback
+  app.get('/auth/twitter', providersPassport["twitter.auth"], users.signin);
+  app.get('/auth/twitter/callback', providersPassport["twitter.callback"], users.authCallback);
 
-
-    /**
-     * Authentications
-     */
-
-    // Facebook Auth
-    app.get('/auth/facebook',
-        passport.authenticate('facebook', {
-            scope: ['basic_info', 'email'],
-            failureRedirect: '/login'
-        }),
-        users.signin);
-
-    app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', {
-            failureRedirect: '/login'
-        }),
-        users.authCallback);
-
-    // Twitter Auth
-    app.get('/auth/twitter',
-        passport.authenticate('twitter', {
-            failureRedirect: '/login'
-        }),
-        users.signin);
-
-    app.get('/auth/twitter/callback',
-        passport.authenticate('twitter', {
-            failureRedirect: '/login'
-        }),
-        users.authCallback);
-
-    // // Google+ Auth
-    // app.get('/auth/google',
-    //  passport.authenticate('google', {
-    //          failureRedirect: '/login',
-    //          scope: [
-    //              'https://www.googleapis.com/auth/userinfo.profile',
-    //              'https://www.googleapis.com/auth/userinfo.email'
-    //          ]
-    //  }),
-    //  users.signin);
-
-    // app.get('/auth/google/callback',
-    //  passport.authenticate('google', {
-    //          failureRedirect: '/login'
-    //  }),
-    //  users.authCallback)
-
-    app.param('userId', users.user)
+  // // Google+ Auth
+  app.get('/auth/google', providersPassport["google.auth"], users.signin);
+  app.get('/auth/google/callback', providersPassport["google.callback"], users.authCallback)
 
 }

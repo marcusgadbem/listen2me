@@ -2,7 +2,7 @@
                         <div class="medium-2 large-3 columns"><img class="video--thumb" src="<%= item.video_thumbnails %>"></div>
                         <div class="medium-10 large-9 columns">
                             <span class="video--title"><%= item.video_title %></span>
-                            <% if (String(item.owner._id) !== String(current_user._id)) { %>
+                            <% if (item.owner !== current_user) { %>
                                 <span class="video--owner">Added by <%= item.owner.username %></span>
                             <% } else { %>
 
