@@ -36,17 +36,8 @@ module.exports = function(app) {
   var providersPassport = {
     "facebook.auth":      passport.authenticate('facebook', {scope: ['basic_info', 'email'], failureRedirect: '/login'}),
     "facebook.callback":  passport.authenticate('facebook', {failureRedirect: '/login'}),
-
     "twitter.auth":       passport.authenticate('twitter', {failureRedirect: '/login'}),
     "twitter.callback":   passport.authenticate('twitter', {failureRedirect: '/login'}),
-
-    "google.auth":        passport.authenticate('google', {
-                            failureRedirect: '/login',
-                            scope: [
-                            'https://www.googleapis.com/auth/userinfo.profile',
-                            'https://www.googleapis.com/auth/userinfo.email']
-                          }),
-    "google.callback":    passport.authenticate('google', {failureRedirect: '/login'})
   }
 
   // Facebook auth / callback
@@ -56,9 +47,5 @@ module.exports = function(app) {
   // Twitter auth / callback
   app.get('/auth/twitter', providersPassport["twitter.auth"], users.signin);
   app.get('/auth/twitter/callback', providersPassport["twitter.callback"], users.authCallback);
-
-  // // Google+ Auth
-  app.get('/auth/google', providersPassport["google.auth"], users.signin);
-  app.get('/auth/google/callback', providersPassport["google.callback"], users.authCallback)
 
 }

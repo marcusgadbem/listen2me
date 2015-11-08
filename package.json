@@ -42,6 +42,7 @@
     "lodash": "^2.4.1",
     "method-override": "~1.0.0",
     "mongoose": "latest",
+    "morgan": "^1.6.1",
     "passport": "latest",
     "passport-facebook": "latest",
     "passport-google-oauth": "latest",

@@ -18,7 +18,7 @@ module.exports = Sockets;
  * @api public
  */
 function Sockets(app, httpServer) {
-  var envs = app.get('envs'),
+  var env = app.get('appEnv'),
       sessionStore = app.get('sessionStore'),
       io = sio.listen(httpServer);
 
@@ -64,7 +64,7 @@ function Sockets(app, httpServer) {
   io.set('authorization', passportSocketIo.authorize({
     cookieParser: cookieParser,
     key:         'connect.sid',
-    secret:      envs.session_secret,
+    secret:      env.SESSION_SECRET,
     store:       sessionStore,
     success:     onAuthorizeSuccess,
     fail:        onAuthorizeFail,

@@ -2,7 +2,6 @@ var mongoose = require('mongoose'),
     passport = require('passport'),
     TwitterStrategy = require('passport-twitter').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
     User = mongoose.model('User')
 
 /**
@@ -19,8 +18,7 @@ module.exports = Strategy;
  */
 function Strategy(app) {
 
-  var envs = app.get('envs');
-  var servicesCredentials = envs.services;
+  var env = app.get('appEnv');
 
   /**
    *  Passport Login Serialization / Deserialization
@@ -39,9 +37,9 @@ function Strategy(app) {
 
   // use twitter strategy
   passport.use(new TwitterStrategy({
-      consumerKey: servicesCredentials.twitter.clientID,
-      consumerSecret: servicesCredentials.twitter.clientSecret,
-      callbackURL: servicesCredentials.twitter.callbackURL
+      consumerKey:    env.TWITTER_clientID,
+      consumerSecret: env.TWITTER_clientSecret,
+      callbackURL:    env.TWITTER_callbackURL
     },
     function(token, tokenSecret, profile, done) {
       User.findOne({
@@ -72,9 +70,9 @@ function Strategy(app) {
 
   // use facebook strategy
   passport.use(new FacebookStrategy({
-      clientID: servicesCredentials.facebook.clientID,
-      clientSecret: servicesCredentials.facebook.clientSecret,
-      callbackURL: servicesCredentials.facebook.callbackURL
+      clientID:     env.FACEBOOK_clientID,
+      clientSecret: env.FACEBOOK_clientSecret,
+      callbackURL:  env.FACEBOOK_callbackURL
     },
     function(accessToken, refreshToken, profile, done) {
       User.findOne({
@@ -104,31 +102,4 @@ function Strategy(app) {
       });
     }
   ));
-
-  // // use google strategy
-  // passport.use(new GoogleStrategy({
-  //      clientID: servicesCredentials.google.clientID,
-  //      clientSecret: servicesCredentials.google.clientSecret,
-  //      callbackURL: servicesCredentials.google.callbackURL
-  //  },
-  //  function(accessToken, refreshToken, profile, done) {
-  //      User.findOne({ 'google.id': profile.id }, function (err, user) {
-  //          if (!user) {
-  //              user = new User({
-  //                  name: profile.displayName,
-  //                  email: profile.emails[0].value,
-  //                  username: profile.username,
-  //                  provider: 'google',
-  //                  google: profile._json
-  //              });
-  //              user.save(function (err) {
-  //                  if (err) console.log(err)
-  //                  return done(err, user)
-  //              });
-  //          } else {
-  //              return done(err, user)
-  //          }
-  //      });
-  //  }
-  // ));
 }

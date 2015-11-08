@@ -1,67 +1,57 @@
-var fs = require('fs'),
-    http = require('http'),
-    express = require('express'),
-    mongoose = require('mongoose'),
-    colors = require('colors'),
-    utils = require('./lib/utils'),
-    _ = require('lodash'),
-    envs = {};
-
 /*
- * Create and config server
+ * Create and config express instance
  */
+var express = require('express');
 var app = express();
-
-/**
- * Configure application
- */
 require('./config')(app);
-envs = app.get('envs');
-
-console.log(envs)
+var env = app.get('appEnv');
 
 // Connect to mongodb
-var connectMongo = function() {
-  var options = {
-    server: {
-      socketOptions: {
-        keepAlive: 1
-      }
-    }
-  }
-
-  mongoose.connect(envs.mongodb_uri, options);
+var mongoose = require('mongoose');
+var connectionOptions = {
+  server: { socketOptions: { keepAlive: 1 } }
 }
-
-connectMongo();
+mongoose.connect(env.MONGODB_URI, connectionOptions);
 
 /**
- * Bootstrap models
+ * Models
+ *   Look recursively into app/models
+ *   and load each class found
  */
+
+var path = require('path');
+var fs = require('fs');
 var modelsPath = path.join(__dirname, '/app/models');
 fs.readdirSync(modelsPath).forEach(function(file) {
   if (~file.indexOf('.js')) require(path.join(modelsPath,file))
 });
 
-/*
- * Passportjs auth strategy
+/**
+ * Passport: config. login strategies
  */
+
 require('./config/passport')(app);
 
-/*
- * Routes
+/**
+ * Routes: setup app routes
  */
+
 require('./config/routes')(app);
 
 /*
  * Start server and bind port
  */
-var httpServer = http.createServer(app).listen(envs.port, function() {
+var http = require('http');
+var colors = require('colors');
+var utils = require('./lib/utils');
+var _ = require('lodash');
+
+var httpServer = http.createServer(app).listen(env.PORT, function() {
   // l2m started
   console.log('\n', ' listen2me'.bold.yellow, 'started'.yellow, utils.marks("v").green, '\n  -'.grey);
   // pretty print each env var
-  _.each(Object.keys(envs), function(key) {
-    console.log(utils.marks("[]")[5].grey, key.blue + ':', envs[key]);
+  _.each(Object.keys(env), function(key) {
+    console.log(utils.marks("[]")[5].grey, key.blue + ':', env[key]);
   });
   // line-break
   console.log('\n');
@@ -73,7 +63,7 @@ var httpServer = http.createServer(app).listen(envs.port, function() {
 // express, socket-io
 var io = require('./config/socket-io')(app, httpServer);
 
-// SocketIO Controllers
+// // SocketIO Controllers
 require('./app/controllers/sockets')(app, io);
 
 /*
