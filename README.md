@@ -23,4 +23,4 @@ TODO
 
 # Copyright
 
-...
+[MIT License](LICENSE.md) © Marcus Gadbem
