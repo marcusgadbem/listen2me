@@ -1,21 +1,9 @@
-### OSX ###
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# Node Modules
 node_modules/
-
-# Bower Modules
 bower_modules/
-
-# New Relic log
-newrelic_agent.log
+build/
+.azk
+.npm
+.bash_history
+.nodemon-find-ref
+*.log
+.env
